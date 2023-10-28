@@ -4,6 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from datetime import datetime
+from typing import List
 
 app = FastAPI()
 
@@ -52,7 +53,7 @@ def get_post() -> Timestamp:
     post_db.append(new_timestamp)
     return new_timestamp
 
-@app.get('/dog', response_model=list[Dog]) # Need to do list[Dog] to return several items
+@app.get('/dog', response_model=List[Dog]) # Need to do list[Dog] to return several items
 def get_dogs(kind: DogType = None): # None means parameter is optional
     if not kind:
         return [dict(dogs_db[i]) for i in dogs_db.keys()]
